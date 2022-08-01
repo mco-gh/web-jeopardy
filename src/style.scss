@@ -1,0 +1,265 @@
+
+$ani__dur: 0.2s;
+$ani__dur--slow: $ani__dur * 3;
+
+$color__black: #000;
+$color__white: #fcffff;
+
+$color__gray--lighter: #efeeee;
+$color__gray--light: #dcdddd;
+$color__gray: #c3c4c4;
+$color__gray--dark: #969999;
+$color__gray--darker: #323333;
+$color__gray--darkest: #121111;
+
+$color__brown--lightest: #cd0000;
+$color__brown--lighter: #b30000;
+$color__brown--light: #9a0000;
+$color__brown: #800000;
+$color__brown--dark: #660000;
+$color__brown--darker: #590000;
+$color__brown--darkest: #330000;
+
+$color__red--lightest: #f8979c;
+$color__red--lighter: #FF888D;
+$color__red--light: #F14950;
+$color__red: #FF190D;
+$color__red--dark: #c51104;
+$color__red--darker: #A00309;
+$color__red--darkest: #800007;
+
+$color__rose--lightest: #FFA1D9;
+$color__rose--lighter: #FF8AD0;
+$color__rose--light: #FF66C1;
+$color__rose: #FF1AA2;
+$color__rose--dark: #B2096E;
+$color__rose--darker: #9F005F;
+$color__rose--darkest: #520031;
+
+$color__orange--lightest: #ffcf9a;
+$color__orange--lighter: #feac68;
+$color__orange--light: #fc9a46;
+$color__orange: #fa6824;
+$color__orange--dark: #bb4a19;
+$color__orange--darker: #992807;
+$color__orange--darkest: #770505;
+
+$color__yellow--lightest: #fffecf;
+$color__yellow--lighter: #fffd8e;
+$color__yellow--light: #fffc5c;
+$color__yellow: #ffeb3b;
+$color__yellow--dark: #d1ba01;
+$color__yellow--darker: #c0a900;
+$color__yellow--darkest: #906000;
+
+$color__green--lightest: #6cfd6f;
+$color__green--lighter: #39fa3f;
+$color__green--light: #17E81F;
+$color__green: #009B06;
+$color__green--dark: #037907;
+$color__green--darker: #025a05;
+$color__green--darkest: #023b04;
+
+$color__blue--lightest: #afedff;
+$color__blue--lighter: #6edbff;
+$color__blue--light: #3ca9ff;
+$color__blue: #2196f3;
+$color__blue--dark: #0b62a6;
+$color__blue--darker: #044475;
+$color__blue--darkest: #142633;
+
+$color__violet: #B406FF;
+$color__violet--dark: #7D02B2;
+$color__violet--darker: #470165;
+$color__violet--darkest: #130032;
+
+$stroke__width: 0.5;
+
+$app__height: 96vh;
+$app__width: 96vw;
+
+$font__size: calc(9px + (#{$app__width} * .01));
+
+@keyframes daily-double {
+  0% {
+    transform: rotateY(810deg) translateX(-50%) translateY(-50%);
+  }
+  
+  100% {
+    transform: rotateY(0) translateX(-50%) translateY(-50%);
+  }
+}
+
+// MIXINS
+
+@mixin size($width, $height) {
+  height:  $height;
+  width:  $width;
+}
+
+@mixin square($size) {
+  height:  $size;
+  width:  $size;
+}
+
+// APP
+
+body {
+  @include size(100vw, 100vh);
+  background-color: $color__blue--darker;
+  box-sizing: border-box;
+  font-size: $font__size;
+  margin: 0;
+  overflow: hidden;
+  psotion: relative;
+  
+  * {
+    box-sizing: border-box;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.category {
+  display: flex;
+  flex-basis: calc(100% / 6);
+  flex-direction: column;
+  text-align: center;
+  width: calc(100% / 6);
+  
+  > * {
+    align-items: center;
+    border: 1px solid $color__blue--darker;
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 1;
+    justify-content: center;
+  }
+}
+
+.category__price {
+  color: $color__yellow;
+  cursor: help;
+  font-size: 2em;
+  font-weight: 900;
+  text-shadow: 0 0 0.25em $color__black;
+  transition: background-color $ani__dur ease-in-out;
+  
+  &:hover {
+    background-color: rgba($color__white, 0.1);
+  }
+}
+
+.category__price--hidden {
+  color: transparent;
+  text-shadow: none;
+}
+
+.category__title,
+.question__question {
+  color: $color__white;
+  font-weight: 600;
+  text-shadow: 0 0 0.25em $color__black;
+}
+
+.category__title {
+  span {
+    opacity: 0;
+    padding: 0 1em;
+  }
+}
+
+.category__title--active {
+  span {
+    opacity: 1;
+  }
+}
+
+.categories {
+  @include square(100%);
+  background-image: radial-gradient($color__blue, $color__blue--dark);
+  border: 1px solid $color__black;
+  display: flex;
+}
+
+.categories--hidden {
+  opacity: 0;
+}
+
+.jeop {
+  @include size($app__width, $app__height);
+  margin: 0 auto;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.question {
+  @include size($app__width, $app__height);
+  background-color: $color__blue;
+  background-image: radial-gradient($color__blue, $color__blue--dark);
+  border: 1px solid $color__black;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translateX(100%) translateY(-50%);
+}
+
+.question--active {
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.question--dd {
+  .question__dd {
+    animation: daily-double $ani__dur--slow ease-in-out;
+    transform: rotateY(0) translateX(-50%) translateY(-50%);
+  }
+}
+
+.question__dd {
+  @include square(100%);
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: rotateY(810deg) translateX(-50%) translateY(-50%);
+  transform-origin: center left;
+}
+
+.question__question {
+  font-size: 2em;
+  position: absolute;
+  top: 50%; left: 50%;
+  text-align: center;
+  transform: translateX(-50%) translateY(-50%);
+  width: 70%;
+}
+
+.question__toggle {
+  @include square(1em);
+  background-color: rgba($color__white, 0.1);
+  position: absolute;
+  top: 1em; right: 1em;
+  
+  &:hover {
+    background-color: rgba($color__white, 0.25);
+  }
+}
+
+.toggle {
+  @include size(4em, 1em);
+  display: flex;
+  position: absolute;
+  bottom: 0; left: 0;
+}
+
+.toggle__toggle {
+  @include square(1em);
+  background-color: rgba($color__white, 0.1);
+  margin-right: 1em;
+}
+
+.toggle__toggle--active {
+  background-color: rgba($color__white, 0.25);
+}
